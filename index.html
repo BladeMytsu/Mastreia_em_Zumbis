@@ -1,58 +1,69 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-  </head>
-  <body>
-    <button id="connect-button">Connect Metamask</button>
-    <button id="send-button">Tip 0.001 ETH</button>
-    <script>
-      let account;
+    <head>
+        <meta charset='utf8'>
+    </head>
+    <body>
+ <title>Maestria em Zumbis - Jogue para Ganhar | Versão Alpha</title>
+	     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+	    
+	    
+	    
+	    
+	    
 
-      document.getElementById('connect-button').addEventListener('click', event => { 
-        let button = event.target;
-        ethereum.request({method: 'eth_requestAccounts'}).then(accounts => {
-          account = accounts[0];
-          console.log(account);
-          button.textContent = account;
+	    
+	    
+	<style>
+		* {
+			margin: 10;
+			padding: 10;
+		}
+		canvas {
+			outline: none
+		}
+		html, body {
+			margin: 10;
+			background-color: black;
+			color: white;
+		}
+	</style>
+        <div id='ruffle'></div>
+        <script src='ruffle/ruffle.js'></script>
+        <script>
+		
+var swfobject = {};
 
-          ethereum.request({method: 'eth_getBalance' , params: [account, 'latest']}).then(result => {
-            console.log(result);
-            let wei = parseInt(result,16);
-            let balance = wei / (10**18);
-            console.log(balance + " ETH");
-          });
+swfobject.embedSWF = function(url, cont, width, height){
+    var ruffle = window.RufflePlayer.newest(),
+        player = Object.assign(document.getElementById(cont).appendChild(ruffle.createPlayer()), {
+            width: width,
+            height: height,
+            style: 'width: ' + width + 'px; height: ' + height + 'px',
         });
-      });
+	
+	
+	window.RufflePlayer.config = {
+    "autoplay": "on",
+    "unmuteOverlay": "hidden",
+    "contextMenu": false,
+}
+    
+    player.load({ url: url });
+	
+}
 
-      if(window.ethereum.networkVersion == 10) {
-        document.getElementById('send-button').addEventListener('click', event =>{
-          let transactionParam = {
-            to: '0x45B6b39e1Cf8A6b4Ff2720f6BA0089d4574126E5',
-            from: account,
-            value: '0x38D7EA4C68000'
-          };
-          
-          ethereum.request({method: 'eth_sendTransaction', params:[transactionParam]}).then(txhash => {
-            console.log(txhash);
-            checkTransactionconfirmation(txhash).then(r => alert(r));
-          });
-        });
-      }
-      function checkTransactionconfirmation(txhash) {
-
-        let checkTransactionLoop = () => {
-          return ethereum.request({method:'eth_getTransactionReceipt',params:[txhash]}).then(r => {
-            if(r !=null) return 'confirmed';
-            else return checkTransactionLoop();
-          });
-        };
-
-        return checkTransactionLoop();
-      }
-
-
-    </script>  
-  </body>
+swfobject.embedSWF('default.swf', 'ruffle', 1052, 419);
+        </script>
+	    
+	    
+	    
+	    
+	<br>    
+<br>	    
+	    <br>
+	    <div id="BladeMytsu" text-align: center></div>
+	          <br>
+	    
+    </body>
 </html>
